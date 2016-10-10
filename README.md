@@ -4,10 +4,10 @@ Python scripts for reconciling data against VIAF and DBpedia
 ##Sample Files
 
 ####organizations.txt
-A sample list of organizations that can be used with [dbpediaReconciliationCorporate.py](/dbpediaReconciliationCorporate.py) and [viafReconciliationCorporate.py](/viafReconciliatioCorporate.py)
+A sample list of organizations that can be used with [dbpediaReconciliationCorporate.py](/dbpediaReconciliationCorporate.py) and [viafReconciliationCorporate.py](/viafReconciliationCorporate.py)
 
 ####people.txt
-A sample list of people that can be used with [dbpediaReconciliationPeople.py](/dbpediaReconciliationPeople.py) and [viafReconciliationPeople.py](/viafReconciliatioPeople.py)
+A sample list of people that can be used with [dbpediaReconciliationPeople.py](/dbpediaReconciliationPeople.py) and [viafReconciliationPeople.py](/viafReconciliationPeople.py)
 
 ##Scripts
 
