@@ -3,24 +3,24 @@ These Python scripts reconcile personal and corporate names against the Virtual 
 
 While these automated searches are efficient, they are rarely 100% accurate so the results of this script always require manual review. For example, when searching for "University of Portland," the viafReconciliationCorporate.py script returns "University of Maine. School of Law" and the viafReconciliationCorporate.py script returns "Portland State University."
 
-##Sample Files
+## Sample Files
 
-####[organizations.txt](organizations.txt)
+#### [organizations.txt](organizations.txt)
 A sample list of organizations that can be used with [dbpediaReconciliationCorporate.py](dbpediaReconciliationCorporate.py) and [viafReconciliationCorporate.py](viafReconciliationCorporate.py)
 
-####[people.txt](people.txt)
+#### [people.txt](people.txt)
 A sample list of people that can be used with [dbpediaReconciliationPeople.py](dbpediaReconciliationPeople.py) and [viafReconciliationPeople.py](viafReconciliationPeople.py)
 
-##Scripts
+## Scripts
 
-####[dbpediaReconciliationCorporate.py](dbpediaReconciliationCorporate.py)
+#### [dbpediaReconciliationCorporate.py](dbpediaReconciliationCorporate.py)
 This script searches DBpedia records with the class of "Organisation."
 
-####[dbpediaReconciliationPeople.py](dbpediaReconciliationPeople.py)	
+#### [dbpediaReconciliationPeople.py](dbpediaReconciliationPeople.py)	
 This script searches DBpedia records with the class of "Person." Given that DBpedia stores personal names in direct order ("George Washington") and most name headings in library and archival data are stored in indirect order ("Washington, George"), this script creates a "searchDirectOrder" column that places the name in direct order based on the placement of the first comma.  The script then compares the retrieved DBpedia name to the "searchDirectOrder" column rather than the "search" column. If there is only one name in "search" column (e.g. "Voltaire," "Prince"), the script will place "N/A" in the "searchDirectOrder" column and compares the retrieved DBpedia name to the original "search" column rather the "searchDirectOrder" column.
 
-####[viafReconciliationCorporate.py](viafReconciliationCorporate.py)
+#### [viafReconciliationCorporate.py](viafReconciliationCorporate.py)
 This script uses VIAF's "corporateNames" index and retrieves VIAF, Library of Congress, and International Standard Name Identifier (ISNI) URIs for each potential match.
 
-####[viafReconciliationPeople.py](viafReconciliationPeople.py)
+#### [viafReconciliationPeople.py](viafReconciliationPeople.py)
 This script uses VIAF's "personalNames" index and retrieves VIAF, Library of Congress, and International Standard Name Identifier (ISNI) URIs for each potential match.
