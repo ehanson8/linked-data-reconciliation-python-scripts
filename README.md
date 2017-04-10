@@ -5,10 +5,10 @@ While these automated searches are efficient, they are rarely 100% accurate so t
 
 ## Sample Files
 
-#### [organizations.txt](organizations.txt)
+#### [organizations.csv](organizations.csv)
 A sample list of organizations that can be used with [dbpediaReconciliationCorporate.py](dbpediaReconciliationCorporate.py) and [viafReconciliationCorporate.py](viafReconciliationCorporate.py)
 
-#### [people.txt](people.txt)
+#### [people.csv](people.csv)
 A sample list of people that can be used with [dbpediaReconciliationPeople.py](dbpediaReconciliationPeople.py) and [viafReconciliationPeople.py](viafReconciliationPeople.py)
 
 ## Scripts
