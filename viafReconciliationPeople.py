@@ -7,14 +7,16 @@ import urllib
 baseURL = 'http://viaf.org/viaf/search/viaf?query=local.personalNames+%3D+%22'
 f=csv.writer(open('viafPeopleResults.csv', 'wb'))
 f.writerow(['search']+['result']+['viaf']+['lc']+['isni']+['ratio']+['partialRatio']+['tokenSort']+['tokenSet']+['avg'])
-with open('people.txt') as txt:
-    for row in txt:
-        rowEdited = urllib.quote(row.decode('utf-8-sig').encode('utf-8').strip())
+with open('people.csv') as csvfile:
+    reader = csv.DictReader(csvfile)
+    for row in reader:
+        name = str(row['name'])
+        rowEdited = urllib.quote(name.strip())
         url = baseURL+rowEdited+'%22+and+local.sources+%3D+%22lc%22&sortKeys=holdingscount&maximumRecords=1&httpAccept=application/rdf+json'
         response = requests.get(url).content
-        response = response[response.index('<recordData xsi:type="ns1:stringOrXmlFragment">')+47:response.index('</recordData>')].replace('&quot;','"')
-        response = json.loads(response)
         try:
+            response = response[response.index('<recordData xsi:type="ns1:stringOrXmlFragment">')+47:response.index('</recordData>')].replace('&quot;','"')
+            response = json.loads(response)
             label = response['mainHeadings']['data'][0]['text']
             viafid = response['viafID']
         except:
@@ -25,6 +27,7 @@ with open('people.txt') as txt:
         tokenSort = fuzz.token_sort_ratio(row, label)
         tokenSet = fuzz.token_set_ratio(row, label)
         avg = (ratio+partialRatio+tokenSort+tokenSet)/4
+
         if viafid != '':
             links = json.loads(requests.get('http://viaf.org/viaf/'+viafid+'/justlinks.json').text)
             viafid = 'http://viaf.org/viaf/'+viafid
@@ -39,5 +42,4 @@ with open('people.txt') as txt:
         else:
             lc = ''
             isni = ''
-        f=csv.writer(open('viafPeopleResults.csv', 'a'))
-        f.writerow([row.strip()]+[label]+[viafid]+[lc]+[isni]+[ratio]+[partialRatio]+[tokenSort]+[tokenSet]+[avg])
+        f.writerow([name.strip()]+[label]+[viafid]+[lc]+[isni]+[ratio]+[partialRatio]+[tokenSort]+[tokenSet]+[avg])

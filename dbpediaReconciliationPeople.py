@@ -8,11 +8,13 @@ baseURL = 'http://lookup.dbpedia.org/api/search/KeywordSearch?MaxHits=1&QueryStr
 typeQualifier = '&QueryClass=person'#Use DBpedia classes listed here (http://mappings.dbpedia.org/server/ontology/classes/) to refine results provided that all of the entities in the source file are of the same types
 f=csv.writer(open('dbpediaResultsPeople.csv', 'wb'))
 f.writerow(['search']+['searchDirectOrder']+['result']+['ratio']+['partialRatio']+['tokenSort']+['tokenSet']+['avg']+['uri'])
-with open('people.txt') as txt:
-    for row in txt:
-        rowDirect = row.strip()[row.find(',')+2:]+' '+row[:row.find(',')]
-        rowEdited = urllib.quote(row.decode('utf-8-sig').encode('utf-8').strip())
-        url = baseURL+rowEdited.strip()+typeQualifier
+with open('people.csv') as csvfile:
+    reader = csv.DictReader(csvfile)
+    for row in reader:
+        name = str(row['name'])
+        nameDirect = name.strip()[name.find(',')+2:]+' '+name[:name.find(',')]
+        nameEdited = urllib.quote(name.decode('utf-8-sig').encode('utf-8').strip())
+        url = baseURL+nameEdited.strip()+typeQualifier
         response = requests.get(url).content
         record = BeautifulSoup(response, "lxml").find('html').find('body').find('arrayofresult').find('result')
         try:
@@ -21,17 +23,17 @@ with open('people.txt') as txt:
         except:
             label = ''
             uri = ''
-        if row.find(',') != -1:
-            ratio = fuzz.ratio(rowDirect, label)
-            partialRatio = fuzz.partial_ratio(rowDirect, label)
-            tokenSort = fuzz.token_sort_ratio(rowDirect, label)
-            tokenSet = fuzz.token_set_ratio(rowDirect, label)
+        if name.find(',') != -1:
+            ratio = fuzz.ratio(nameDirect, label)
+            partialRatio = fuzz.partial_ratio(nameDirect, label)
+            tokenSort = fuzz.token_sort_ratio(nameDirect, label)
+            tokenSet = fuzz.token_set_ratio(nameDirect, label)
         else:
-            ratio = fuzz.ratio(row, label)
-            partialRatio = fuzz.partial_ratio(row, label)
-            tokenSort = fuzz.token_sort_ratio(row, label)
-            tokenSet = fuzz.token_set_ratio(row, label)
+            ratio = fuzz.ratio(name, label)
+            partialRatio = fuzz.partial_ratio(name, label)
+            tokenSort = fuzz.token_sort_ratio(name, label)
+            tokenSet = fuzz.token_set_ratio(name, label)
             rowDirect = 'N/A'
         avg = (ratio+partialRatio+tokenSort+tokenSet)/4
         f=csv.writer(open('dbpediaResultsPeople.csv', 'a'))
-        f.writerow([row.strip()]+[rowDirect]+[label]+[ratio]+[partialRatio]+[tokenSort]+[tokenSet]+[avg]+[uri])
+        f.writerow([name.strip()]+[nameDirect]+[label]+[ratio]+[partialRatio]+[tokenSort]+[tokenSet]+[avg]+[uri])
