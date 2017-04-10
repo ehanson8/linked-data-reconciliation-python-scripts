@@ -33,7 +33,7 @@ with open('people.csv') as csvfile:
             partialRatio = fuzz.partial_ratio(name, label)
             tokenSort = fuzz.token_sort_ratio(name, label)
             tokenSet = fuzz.token_set_ratio(name, label)
-            rowDirect = 'N/A'
+            nameDirect = 'N/A'
         avg = (ratio+partialRatio+tokenSort+tokenSet)/4
         f=csv.writer(open('dbpediaResultsPeople.csv', 'a'))
         f.writerow([name.strip()]+[nameDirect]+[label]+[ratio]+[partialRatio]+[tokenSort]+[tokenSet]+[avg]+[uri])
