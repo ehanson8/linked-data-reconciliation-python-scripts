@@ -1,10 +1,13 @@
+# -*- coding: utf-8 -*-
 import requests
 import csv
 from fuzzywuzzy import fuzz
 import json
 import urllib
+from HTMLParser import HTMLParser
 
 baseURL = 'http://viaf.org/viaf/search/viaf?query=local.corporateNames+%3D+%22'
+h = HTMLParser()
 f=csv.writer(open('viafCorporateResults.csv', 'wb'))
 f.writerow(['search']+['result']+['viaf']+['lc']+['isni']+['ratio']+['partialRatio']+['tokenSort']+['tokenSet']+['avg'])
 with open('organizations.csv') as csvfile:
@@ -18,6 +21,7 @@ with open('organizations.csv') as csvfile:
             response = response[response.index('<recordData xsi:type="ns1:stringOrXmlFragment">')+47:response.index('</recordData>')].replace('&quot;','"')
             response = json.loads(response)
             label = response['mainHeadings']['data'][0]['text']
+            label = h.unescape(label)
             viafid = response['viafID']
         except:
             label = ''
@@ -42,4 +46,4 @@ with open('organizations.csv') as csvfile:
         else:
             lc = ''
             isni = ''
-        f.writerow([name.strip()]+[label]+[viafid]+[lc]+[isni]+[ratio]+[partialRatio]+[tokenSort]+[tokenSet]+[avg])
+        f.writerow([name.strip()]+[label.encode('utf-8')]+[viafid]+[lc]+[isni]+[ratio]+[partialRatio]+[tokenSort]+[tokenSet]+[avg])
