@@ -14,16 +14,16 @@ A sample list of people that can be used with [dbpediaReconciliationPeople.py](d
 ## Scripts
 
 #### [dbpediaReconciliationCorporate.py](dbpediaReconciliationCorporate.py)
-This script searches DBpedia records with the class of "Organisation."
+Searches DBpedia records with the class of "Organisation."
 
 #### [dbpediaReconciliationGeneral.py](dbpediaReconciliationGeneral.py)
-This script searches DBpedia records without specifiying a class. By not specifying a class, this script tends to be less accurate than [dbpediaReconciliationPeople.py](dbpediaReconciliationPeople.py) or [dbpediaReconciliationCorporate.py](dbpediaReconciliationCorporate.py), but it could be used for a list that contains both personal and corporate names.
+Searches DBpedia records without specifiying a class. By not specifying a class, this script tends to be less accurate than [dbpediaReconciliationPeople.py](dbpediaReconciliationPeople.py) or [dbpediaReconciliationCorporate.py](dbpediaReconciliationCorporate.py), but it could be used for a list that contains both personal and corporate names.
 
 #### [dbpediaReconciliationPeople.py](dbpediaReconciliationPeople.py)	
-This script searches DBpedia records with the class of "Person." Given that DBpedia stores personal names in direct order ("George Washington") and most name headings in library and archival data are stored in indirect order ("Washington, George"), this script creates a "searchDirectOrder" column that places the name in direct order based on the placement of the first comma.  The script then compares the retrieved DBpedia name to the "searchDirectOrder" column rather than the "search" column. If there is only one name in "search" column (e.g. "Voltaire," "Prince"), the script will place "N/A" in the "searchDirectOrder" column and compares the retrieved DBpedia name to the original "search" column rather the "searchDirectOrder" column.
+Searches DBpedia records with the class of "Person." Given that DBpedia stores personal names in direct order ("George Washington") and most name headings in library and archival data are stored in indirect order ("Washington, George"), this script creates a "searchDirectOrder" column that places the name in direct order based on the placement of the first comma.  The script then compares the retrieved DBpedia name to the "searchDirectOrder" column rather than the "search" column. If there is only one name in "search" column (e.g. "Voltaire," "Prince"), the script will place "N/A" in the "searchDirectOrder" column and compares the retrieved DBpedia name to the original "search" column rather the "searchDirectOrder" column.
 
 #### [viafReconciliationCorporate.py](viafReconciliationCorporate.py)
-This script uses VIAF's "corporateNames" index and retrieves VIAF, Library of Congress, and International Standard Name Identifier (ISNI) URIs for each potential match.
+Uses VIAF's "corporateNames" index and retrieves VIAF, Library of Congress, and International Standard Name Identifier (ISNI) URIs for each potential match.
 
 #### [viafReconciliationPeople.py](viafReconciliationPeople.py)
-This script uses VIAF's "personalNames" index and retrieves VIAF, Library of Congress, and International Standard Name Identifier (ISNI) URIs for each potential match.
+Uses VIAF's "personalNames" index and retrieves VIAF, Library of Congress, and International Standard Name Identifier (ISNI) URIs for each potential match.
