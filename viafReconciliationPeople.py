@@ -8,7 +8,7 @@ from HTMLParser import HTMLParser
 
 baseURL = 'http://viaf.org/viaf/search/viaf?query=local.personalNames+%3D+%22'
 h = HTMLParser()
-f=csv.writer(open('viafPeopleResults.csv', 'wb'))
+f=csv.writer(open('viafPeopleResults.csv', 'w'))
 f.writerow(['search']+['result']+['viaf']+['lc']+['isni']+['ratio']+['partialRatio']+['tokenSort']+['tokenSet']+['avg'])
 with open('p.csv') as csvfile:
     reader = csv.DictReader(csvfile)
@@ -22,7 +22,7 @@ with open('p.csv') as csvfile:
             response = json.loads(response)
             label = response['mainHeadings']['data'][0]['text']
             label = h.unescape(label)
-            print label
+            print(label)
             viafid = response['viafID']
         except:
             label = ''
@@ -47,4 +47,4 @@ with open('p.csv') as csvfile:
         else:
             lc = ''
             isni = ''
-        f.writerow([name.strip()]+[label.encode('utf-8')]+[viafid]+[lc]+[isni]+[ratio]+[partialRatio]+[tokenSort]+[tokenSet]+[avg])
+        f.writerow([name.strip()]+[label]+[viafid]+[lc]+[isni]+[ratio]+[partialRatio]+[tokenSort]+[tokenSet]+[avg])
