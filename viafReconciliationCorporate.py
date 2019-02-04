@@ -4,24 +4,23 @@ import csv
 from fuzzywuzzy import fuzz
 import json
 import urllib
-from HTMLParser import HTMLParser
 
 baseURL = 'http://viaf.org/viaf/search/viaf?query=local.corporateNames+%3D+%22'
-h = HTMLParser()
 f=csv.writer(open('viafCorporateResults.csv', 'w'))
 f.writerow(['search']+['result']+['viaf']+['lc']+['isni']+['ratio']+['partialRatio']+['tokenSort']+['tokenSet']+['avg'])
 with open('organizations.csv') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         name = str(row['name'])
-        rowEdited = urllib.quote(name.strip())
+        rowEdited = urllib.parse.quote(name.strip())
         url = baseURL+rowEdited+'%22+and+local.sources+%3D+%22lc%22&sortKeys=holdingscount&maximumRecords=1&httpAccept=application/rdf+json'
-        response = requests.get(url).content
+        print(url)
+        response = requests.get(url).content.decode('utf-8')
         try:
             response = response[response.index('<recordData xsi:type="ns1:stringOrXmlFragment">')+47:response.index('</recordData>')].replace('&quot;','"')
             response = json.loads(response)
             label = response['mainHeadings']['data'][0]['text']
-            label = h.unescape(label)
+            print(label)
             viafid = response['viafID']
         except:
             label = ''

@@ -13,7 +13,7 @@ with open('organizations.csv') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         name = str(row['name'])
-        nameEdited = urllib.quote(name.strip())
+        nameEdited = urllib.parse.quote(name.strip())
         url = baseURL+nameEdited.strip()
         response = requests.get(url).content
         record = BeautifulSoup(response, "lxml").find('html').find('body').find('arrayofresult').find('result')

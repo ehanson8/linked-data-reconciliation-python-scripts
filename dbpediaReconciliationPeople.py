@@ -13,7 +13,7 @@ with open('people.csv') as csvfile:
     for row in reader:
         name = str(row['name'])
         nameDirect = name.strip()[name.find(',')+2:]+' '+name[:name.find(',')]
-        nameEdited = urllib.quote(name.strip())
+        nameEdited = urllib.parse.quote(name.strip())
         url = baseURL+nameEdited.strip()+typeQualifier
         response = requests.get(url).content
         record = BeautifulSoup(response, "lxml").find('html').find('body').find('arrayofresult').find('result')
