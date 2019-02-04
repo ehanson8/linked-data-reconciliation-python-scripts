@@ -6,19 +6,19 @@ import urllib
 
 baseURL = 'http://lookup.dbpedia.org/api/search/KeywordSearch?MaxHits=1&QueryString='
 typeQualifier = '&QueryClass=person'#Use DBpedia classes listed here (http://mappings.dbpedia.org/server/ontology/classes/) to refine results provided that all of the entities in the source file are of the same types
-f=csv.writer(open('dbpediaResultsPeople.csv', 'wb'))
+f=csv.writer(open('dbpediaResultsPeople.csv', 'w'))
 f.writerow(['search']+['searchDirectOrder']+['result']+['ratio']+['partialRatio']+['tokenSort']+['tokenSet']+['avg']+['uri'])
 with open('people.csv') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         name = str(row['name'])
         nameDirect = name.strip()[name.find(',')+2:]+' '+name[:name.find(',')]
-        nameEdited = urllib.quote(name.decode('utf-8-sig').encode('utf-8').strip())
+        nameEdited = urllib.parse.quote(name.strip())
         url = baseURL+nameEdited.strip()+typeQualifier
         response = requests.get(url).content
         record = BeautifulSoup(response, "lxml").find('html').find('body').find('arrayofresult').find('result')
         try:
-            label = record.find('label').text.encode('utf-8')
+            label = record.find('label').text
             uri = record.find('uri').text
         except:
             label = ''
