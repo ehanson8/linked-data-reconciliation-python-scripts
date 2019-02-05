@@ -1,6 +1,5 @@
 # VIAF and DBpedia Reconciliation Python Scripts
-
-Note: Upgraded to Python 3 in 02/2019
+**Note**: Upgraded to Python 3 in 02/2019. The Python 2.x version can be downloaded [here](https://github.com/ehanson8/viaf-dbpedia-reconciliation-python/releases)
 
 These Python scripts reconcile personal and corporate names against the Virtual International Authority File (VIAF) and DBpedia, a linked data version of Wikipedia. The scripts retrieve the name and URI of the most relevant match for each name searched. To help assess the quality of the matches, these scripts use the [FuzzyWuzzy](http://chairnerd.seatgeek.com/fuzzywuzzy-fuzzy-string-matching-in-python/) Python library to compare the name that was searched to the name that was retrieved.
 
