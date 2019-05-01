@@ -48,5 +48,3 @@ Temporary Items
 *.csv
 *.xml
 *.json
-Pipfile
-Pipfile.lock
