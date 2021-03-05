@@ -12,8 +12,6 @@ fuzzywuzzy = "*"
 python-levenshtein = "*"
 lxml = "*"
 htmlparser = "*"
-django = "*"
-selenium = "*"
 urllib3 = "*"
 
 [requires]

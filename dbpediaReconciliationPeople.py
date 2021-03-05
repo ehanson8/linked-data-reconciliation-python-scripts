@@ -24,7 +24,7 @@ with open('people.csv') as csvfile:
         url = baseURL + nameEdited.strip() + typeQualifier
         response = requests.get(url).content
         record = BeautifulSoup(response, "lxml").find('html').find('body')
-        record = record.find('arrayofresult').find('result')
+        record = record.find('arrayofresults').find('result')
         try:
             label = record.find('label').text
             uri = record.find('uri').text
